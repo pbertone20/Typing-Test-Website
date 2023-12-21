@@ -2,6 +2,42 @@ body {
     background-color: #414141;
     font-family: Tahoma;
 }
+
+fieldset {
+    border: none;
+}
+
+.header {
+    height: 20%;
+    background-color: #FFFFFF;
+}
+
+fieldset[name="title"] {
+    width: 60%;
+
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+fieldset[name="profile"] {
+    width: 5%;
+    position: absolute;
+    left: 95%;
+    -ms-transform: translateX(-95%);
+    transform: translateX(-95%);
+}
+
+button[name="profile"] {
+    width: 75px;
+    height: 75px;
+    
+    color: #E6ADEC;
+    background-color: #414141;
+    border: none;
+}
+
 .title {
     color: #E6ADEC;
     text-align: center;
@@ -28,27 +64,40 @@ body {
 }
 
 .main-text {
-    background-color: #333e1e;
     height: 80%;
     font-size: 25px;
 
+    color: #FFFFFF;
+
+    padding: none;
+
     overflow: scroll;
+    border: none;
+}
+
+.prompt {
+    height: 100%;
+    width: 100%;
+
+    font-size: 25px;
+
+    color: #FFFFFF;
 }
 
 .option-buttons {
-    background-color: #333e1e;
     height: 20%;
 
+    border: none;
 }
 
 button[name="reset"] {
-    background-color: #333e1e; 
+    background-color: #414141;
     color: #E6ADEC;
     font-size: 25px;
     width: 15%;
     height: 20%;
 
-    /*border: none; */
+    border: none;
 
     position: absolute;
     left: 50%;
@@ -56,6 +105,8 @@ button[name="reset"] {
     transform: translateX(-50%);
 }
 
-button[name="reset"]:hover{
-    background-color: #536631; 
+button[name="reset"]:hover,
+button[name="profile"]:hover 
+{
+    background-color: #5f5f5f; 
 }
