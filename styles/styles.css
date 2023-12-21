@@ -1,0 +1,61 @@
+body {
+    background-color: #414141;
+    font-family: Tahoma;
+}
+.title {
+    color: #E6ADEC;
+    text-align: center;
+}
+
+.text-prompt {
+    color: #E6ADEC;
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    height: 200px;
+    min-height: 40%;
+    max-height: 80%;
+
+    width: 800px;
+    min-width: 70%;
+    max-width: 90%;
+    max-width: 80%;
+}
+
+.main-text {
+    background-color: #333e1e;
+    height: 80%;
+    font-size: 25px;
+
+    overflow: scroll;
+}
+
+.option-buttons {
+    background-color: #333e1e;
+    height: 20%;
+
+}
+
+button[name="reset"] {
+    background-color: #333e1e; 
+    color: #E6ADEC;
+    font-size: 25px;
+    width: 15%;
+    height: 20%;
+
+    /*border: none; */
+
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+button[name="reset"]:hover{
+    background-color: #536631; 
+}
