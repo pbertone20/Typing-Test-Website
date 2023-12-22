@@ -31,6 +31,7 @@ body {
     background-color: transparent;
     color: #E6ADEC;
     text-align: center;
+    font-weight: bold;
     height: 50px;
     font-size: 35px;
 
@@ -81,19 +82,33 @@ body {
 
     overflow: scroll;
 }
+.prompt {
+    width: 99%;
+    height: 78%;
+    position: absolute;
+    background-color: transparent;
+    margin: auto;
+    font-size: 1.75rem;
+    padding: 0.12rem;
+    border: none;
+}
 
 .prompt-input {
     width: 99%;
-    height: 95%;
+    height: 78%;
     resize: none; 
     background-color: transparent;
     margin: auto;
     font-size: 1.75rem;
     color: #E6ADEC;
     font-family: Tahoma;
+    position: absolute;
+    border: none;
+    outline: none;
 }
 
 .option-buttons {
+    border: none;
     height: 20%;
 }
 
