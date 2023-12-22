@@ -1,10 +1,7 @@
 body {
     background-color: #414141;
     font-family: Tahoma;
-}
-
-fieldset {
-    border: none;
+    margin: 0;
 }
 
 .header {
@@ -12,24 +9,16 @@ fieldset {
     background-color: #FFFFFF;
 }
 
-fieldset[name="title"] {
-    width: 60%;
-
-    position: absolute;
-    left: 50%;
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-}
-
-fieldset[name="profile"] {
+.profile {
     width: 5%;
     position: absolute;
     left: 95%;
     -ms-transform: translateX(-95%);
     transform: translateX(-95%);
+    border-style: solid;
 }
 
-button[name="profile"] {
+.profile-button {
     width: 75px;
     height: 75px;
     
@@ -39,8 +28,17 @@ button[name="profile"] {
 }
 
 .title {
+    background-color: transparent;
     color: #E6ADEC;
     text-align: center;
+    height: 50px;
+    font-size: 35px;
+
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border: none;
 }
 
 .text-prompt {
@@ -48,7 +46,7 @@ button[name="profile"] {
 
     margin: 0;
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -63,6 +61,16 @@ button[name="profile"] {
     max-width: 80%;
 }
 
+.above-text {
+    vertical-align: text-bottom;
+    height: 15%;
+}
+
+.timer {
+    font-size: 1.75rem;
+
+}
+
 .main-text {
     height: 80%;
     font-size: 25px;
@@ -72,41 +80,42 @@ button[name="profile"] {
     padding: none;
 
     overflow: scroll;
-    border: none;
 }
 
-.prompt {
-    height: 100%;
-    width: 100%;
-
-    font-size: 25px;
-
-    color: #FFFFFF;
+.prompt-input {
+    width: 99%;
+    height: 95%;
+    resize: none; 
+    background-color: transparent;
+    margin: auto;
+    font-size: 1.75rem;
+    color: #E6ADEC;
+    font-family: Tahoma;
 }
 
 .option-buttons {
     height: 20%;
-
-    border: none;
 }
 
-button[name="reset"] {
-    background-color: #414141;
-    color: #E6ADEC;
-    font-size: 25px;
-    width: 15%;
+.new-prompt {
+width: 15%;
     height: 20%;
-
     border: none;
 
     position: absolute;
     left: 50%;
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-}
 
-button[name="reset"]:hover,
-button[name="profile"]:hover 
+    background-color: transparent;
+
+    color: #d7d5d5;
+    font-size: 30px;
+    font-weight: bold;
+}    
+
+.new-prompt:hover,
+.profile-button:hover 
 {
-    background-color: #5f5f5f; 
+    color: #E6ADEC; 
 }

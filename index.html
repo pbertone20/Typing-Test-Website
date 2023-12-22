@@ -4,24 +4,32 @@
         <meta charset="utf-8">
         <title>Peter & Claire's Typeria</title>
         <link href="styles/styles.css" rel="stylesheet">
+        <script src="scripts/test.js"></script>
     </head>
+
     <body>
         <div class="header">
-            <fieldset name="title">
-                <h1 class="title">Peter & Claire's Typeria</h1>
-            </fieldset>
-            <fieldset name="profile">
-                <button type="button" name="profile">P</button>
-            </fieldset>
+                <a href="index.html">
+                    <button type="button" name="title" class="title">Peter & Claire's Typeria</button>
+                </a>
+            <div class="profile">
+                <a href="sign-in.html">
+                    <button type="button" class="profile-button">Profile</button>
+                </a>
+            </div>
         </div>
+
         <div class="text-prompt">
-            <fieldset class="main-text">
-                <object class="prompt" data="assets/prompts/prompt1.txt" type="text/plain">
-                </object>
-            </fieldset>
-            <fieldset class="option-buttons">
-                <button type="button" name="reset">Reset</button>
-            </fieldset>
+            <div class="above-text">
+                <div class="timer" id="timer">0</div>
+            </div>           
+            <div class="main-text">
+                <textarea class="prompt-input" id="prompt-input" autofocus></textarea>
+            </div>
+            <div class="option-buttons">
+                <button type="button" class="new-prompt" title="New Prompt" onclick="">&#8634;</button>
+            </div>
         </div>
+
     </body>
 </html>
