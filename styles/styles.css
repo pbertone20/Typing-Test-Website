@@ -10,21 +10,24 @@ body {
 }
 
 .profile {
-    width: 5%;
+    margin-top: 20px;
+    width: 10%;
+    max-width: 80px;
+    max-height: 80px;
+    aspect-ratio: 1 / 1;
     position: absolute;
-    left: 95%;
-    -ms-transform: translateX(-95%);
-    transform: translateX(-95%);
-    border-style: solid;
+    left: 80%;
+    border: solid;
 }
 
 .profile-button {
-    width: 75px;
-    height: 75px;
+    width: 100%;
+    height: 100%;
+    max-width: 80px;
+    max-height: 80px;
     
     color: #E6ADEC;
-    background-color: #414141;
-    border: none;
+    background-color: transparent;
 }
 
 .title {
@@ -40,6 +43,8 @@ body {
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     border: none;
+
+    margin-top: 20px;
 }
 
 .text-prompt {
@@ -133,4 +138,55 @@ width: 15%;
 .profile-button:hover 
 {
     color: #E6ADEC; 
+}
+
+.sign-up-header {
+    position: absolute;
+    color: #E6ADEC;
+
+    top: 15%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.sign-up-form {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+
+    width: 400px;
+    max-width: 80%;
+    min-width: 20%;
+
+    height: 400px;
+}
+
+.back {
+    width: 10%;
+    aspect-ratio: 1 / 1;
+    max-width: 80px;
+    max-height: 80px;
+    background-color: transparent;
+    position: absolute;
+}
+
+.back-button {
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+}
+
+.back-button:hover {
+    color:#E6ADEC;
+}
+
+input {
+    width: 99%;
 }
