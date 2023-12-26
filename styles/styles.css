@@ -144,10 +144,11 @@ width: 15%;
     position: absolute;
     color: #E6ADEC;
 
-    top: 15%;
+    top: 0%;
     left: 50%;
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
+    margin-top: 0%;
 }
 
 .sign-up-form {
@@ -162,6 +163,13 @@ width: 15%;
     min-width: 20%;
 
     height: 400px;
+    box-shadow: 
+        0 0 0.5rem #FFFFFF,
+        0 0 2rem #E6ADEC;
+    background-color: #414141;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    border: none;
 }
 
 .back {
@@ -189,4 +197,43 @@ width: 15%;
 
 input {
     width: 99%;
+}
+
+.log-in-text {
+    margin-top: 0.25rem;
+}
+
+.log-in-fields {
+    position: absolute;
+    top: 15%;
+    width: 90%;
+    height: 70%;
+}
+
+.log-in-submit {
+    position: absolute;
+    top: 90%;
+    width: 30%;
+    height: 10%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    font-size: 1rem;
+}
+
+.log-in-username,
+.log-in-password {
+    height: 1.5rem;
+    font-size: 1rem;
+}
+
+.no-account-text {
+    color: white;
+    font-size: 0.9rem;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    text-align: center;
 }
