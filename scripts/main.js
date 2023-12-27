@@ -4,6 +4,7 @@ import {updateText, changeText} from "./quotable.js";
 let seconds = 0;
 let timerId;
 let initialValue;
+let numWords = 0;
 
 function updateTimer() {
   document.getElementById("timer").innerText = seconds + " seconds";
@@ -43,7 +44,9 @@ document.getElementById("titleButton").addEventListener("click", () => {
 })
 
 function newPrompt() {
-  updateText();
+  (async() => {
+    numWords = await updateText();
+  })();
   seconds = 0;
   clearInterval(timerId);
   updateTimer();
@@ -58,13 +61,13 @@ document.getElementById("textInput").addEventListener("input", () => {
   let quoteDisplay = document.getElementById("mainText");
   //array of prompt span elements
   let spanArray = document.getElementById("mainText").querySelectorAll('span')
-  //array of prompt characters
-  let textCharacterArray = new Array();
-  spanArray.forEach((span) => {
-    textCharacterArray.push(span.innerText);
-  })
   //array of input characters
   let inputText = document.getElementById("textInput").value.split('');
+  /*
+  if (inputText.length == 1) {
+    timerId = setInterval(updateTimerAndIncrement, 1000);
+  }
+  */
 
   quoteDisplay.innerHTML = '';
   spanArray.forEach((CharacterSpan, index) => {
@@ -84,16 +87,9 @@ document.getElementById("textInput").addEventListener("input", () => {
       newCharacter.innerText = currentChar;
       newCharacter.className = "incorrect";
       quoteDisplay.appendChild(newCharacter);
-      //spanArray[index].className = "incorrect";
     }
     if (CharacterSpan.className != "remove") {
       quoteDisplay.appendChild(CharacterSpan);
     }
   })
-  /*
-  if (currentValue === initialValue) {
-    timerId = setInterval(updateTimerAndIncrement, 100);
-  }
-  */
-  //updateText();
 });
