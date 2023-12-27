@@ -13,6 +13,8 @@ export async function updateText() {
 
 export function changeText(text) {
    const quoteDisplay = document.getElementById('mainText');
+   const quoteInput = document.getElementById("textInput");
+   quoteInput.value = "";
    quoteDisplay.innerHTML = '';
    text.split('').forEach(character => {
       const quoteDisplay = document.getElementById('mainText');

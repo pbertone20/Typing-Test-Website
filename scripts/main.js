@@ -55,6 +55,7 @@ document.getElementById("profileButton").addEventListener("click", () => {
 })
 
 document.getElementById("textInput").addEventListener("input", () => {
+  let quoteDisplay = document.getElementById("mainText");
   //array of prompt span elements
   let spanArray = document.getElementById("mainText").querySelectorAll('span')
   //array of prompt characters
@@ -62,26 +63,31 @@ document.getElementById("textInput").addEventListener("input", () => {
   spanArray.forEach((span) => {
     textCharacterArray.push(span.innerText);
   })
-  //let textCharacterArray = Array.prototype.slice.call(spanArray);
   //array of input characters
-  let input = document.getElementById("textInput");
-  let inputText = input.value.split('');
-  
+  let inputText = document.getElementById("textInput").value.split('');
 
-  textCharacterArray.forEach((CharacterSpan, index) => {
+  quoteDisplay.innerHTML = '';
+  spanArray.forEach((CharacterSpan, index) => {
     let currentChar = inputText[index];
+
     if (currentChar == null) {
-    } /*else if (currentChar == 127 && spanArray[index].className != "correct") {
-      console.log("delete");
-      textCharacterArray.splice(index, 1);
-      changeText(textCharacterArray.join(''));
-    } */else if (currentChar == textCharacterArray[index]) {
-      spanArray[index].className = "correct";
-    } else {
-      textCharacterArray.splice(index, 0, currentChar); //array of characters
-      console.log(textCharacterArray);
-      changeText(textCharacterArray.join(''));
-      spanArray[index].className = "incorrect";
+      if (CharacterSpan.className == "incorrect") {
+        CharacterSpan.className = "remove";
+      } else { 
+        CharacterSpan.className = "";
+      }
+    } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect") {
+      CharacterSpan.className = "correct";
+
+    } else if (CharacterSpan.className != "incorrect") {
+      let newCharacter = document.createElement('span');
+      newCharacter.innerText = currentChar;
+      newCharacter.className = "incorrect";
+      quoteDisplay.appendChild(newCharacter);
+      //spanArray[index].className = "incorrect";
+    }
+    if (CharacterSpan.className != "remove") {
+      quoteDisplay.appendChild(CharacterSpan);
     }
   })
   /*
