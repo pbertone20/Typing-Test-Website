@@ -55,15 +55,23 @@ document.getElementById("profileButton").addEventListener("click", () => {
 })
 
 document.getElementById("textInput").addEventListener("input", () => {
-  console.log("new character");
-  let currentValue = this.value;
+  //let currentValue = this.value;
   let textCharacterArray = document.getElementById("mainText").querySelectorAll('span');
+  let inputText = document.getElementById("textInput").value.split('');
   textCharacterArray.forEach((CharacterSpan, index) => {
+    let currentChar = inputText[index];
+    if (currentChar == null) {
+    } else if (currentChar == textCharacterArray[index].innerText) {
+      textCharacterArray[index].className = "correct";
+    } else {
+      
+      textCharacterArray[index].className = "incorrect";
+    }
   })
-
+  /*
   if (currentValue === initialValue) {
     timerId = setInterval(updateTimerAndIncrement, 100);
   }
-
-  updateText();
+  */
+  //updateText();
 });

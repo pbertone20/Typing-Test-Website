@@ -17,6 +17,7 @@ body {
 
 .incorrect {
     color: #ff5757;
+    text-decoration: underline;
 }
 
 .header {
@@ -122,6 +123,7 @@ body {
     color: transparent;
     caret-color: var(--primary-accent-color);
     font-family: Tahoma;
+    border: none;
 }
 
 .option-buttons {

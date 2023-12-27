@@ -8,12 +8,16 @@ function getQuote() {
 
 export async function updateText() {
    const quoteDisplay = document.getElementById('mainText');
-
    const text = await getQuote();
    quoteDisplay.innerHTML = ('');
    text.split('').forEach(character => {
-      const characterSpan = document.createElement('span');
-      characterSpan.innerText = character;
-      quoteDisplay.appendChild(characterSpan);
+      addCharacterToText(character);
    })
+}
+
+export function addCharacterToText(char) {
+   const quoteDisplay = document.getElementById('mainText');
+   const characterSpan = document.createElement('span');
+   characterSpan.innerText = char;
+   quoteDisplay.appendChild(characterSpan);
 }
