@@ -87,11 +87,7 @@ body {
 .main-text {
     height: 80%;
     font-size: 25px;
-
     color: #FFFFFF;
-
-    padding: none;
-
     overflow: scroll;
 }
 
@@ -106,18 +102,17 @@ body {
     border: none;
 }
 
-.prompt-input {
+.text-input {
     width: 99%;
     height: 78%;
-    resize: none;
+    position: absolute;
+    resize: none; 
     background-color: transparent;
     margin: auto;
     font-size: 1.75rem;
     color: var(--primary-accent-color);
     font-family: Tahoma;
-    position: absolute;
-    border: none;
-    outline: none;
+    border: solid;
 }
 
 .option-buttons {
