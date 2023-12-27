@@ -7,13 +7,13 @@ function getQuote() {
 }
 
 export async function updateText() {
-   const quoteDisplay = document.getElementById('mainText')
-   
-   const text = await getQuote()
-   quoteDisplay.innerHTML = ('')
+   const quoteDisplay = document.getElementById('mainText');
+
+   const text = await getQuote();
+   quoteDisplay.innerHTML = ('');
    text.split('').forEach(character => {
-      const characterSpan = document.createElement('span')
-      characterSpan.innerText = character
-      quoteDisplay.appendChild(characterSpan)
+      const characterSpan = document.createElement('span');
+      characterSpan.innerText = character;
+      quoteDisplay.appendChild(characterSpan);
    })
 }

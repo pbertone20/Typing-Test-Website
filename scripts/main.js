@@ -33,15 +33,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("newPrompt").addEventListener("click", () => {
+  newPrompt();
+  document.getElementById("textInput").focus();
+});
+
+document.getElementById("titleButton").addEventListener("click", () => {
+  window.location.replace("index.html");
+  newPrompt();
+})
+
+function newPrompt() {
   updateText();
   seconds = 0;
   clearInterval(timerId);
   updateTimer();
-  document.getElementById("textInput").value = null
-});
+  document.getElementById("textInput").value = null;
+}
 
-document.getElementById("textInput").addEventListener("change", () => {
+document.getElementById("profileButton").addEventListener("click", () => {
+  window.location.replace("log-in.html");
+})
+
+document.getElementById("textInput").addEventListener("input", () => {
+  console.log("new character");
   let currentValue = this.value;
+  let textCharacterArray = document.getElementById("mainText").querySelectorAll('span');
+  textCharacterArray.forEach((CharacterSpan, index) => {
+  })
 
   if (currentValue === initialValue) {
     timerId = setInterval(updateTimerAndIncrement, 100);

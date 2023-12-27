@@ -11,6 +11,14 @@ body {
     margin: 0;
 }
 
+.correct {
+    color: #b1ff68;
+}
+
+.incorrect {
+    color: #ff5757;
+}
+
 .header {
     height: 20%;
     background-color: #FFFFFF;
@@ -111,7 +119,8 @@ body {
     background-color: transparent;
     margin: auto;
     font-size: 1.75rem;
-    color: var(--primary-accent-color);
+    color: transparent;
+    caret-color: var(--primary-accent-color);
     font-family: Tahoma;
 }
 
