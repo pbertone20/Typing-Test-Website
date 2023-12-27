@@ -16,7 +16,7 @@ auth.onAuthStateChanged(function (user) {
         console.log("User is not logged in");
 
         // Redirect the user to log-in.html page 
-        window.location.href = "log-in.html";
+        //window.location.href = "log-in.html";
     }
 });
 
@@ -36,9 +36,4 @@ async function handleGoogleSignUp() {
 
 };
 
-// obtaining the button located in 'index.html' through the id 'button'
-const signInBtn = document.getElementById("button");
-
-// Listener that will trigger when the signin button is clicked 
-// Once Button is clicked function handleGoogleSignUp is called
-signInBtn.addEventListener("click", handleGoogleSignUp);
+document.getElementById("button").addEventListener("click", handleGoogleSignUp);
