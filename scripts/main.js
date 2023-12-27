@@ -1,5 +1,5 @@
 import { auth } from "../firebaseConfig.js";
-import { newQuote, updateText } from "./quotable.js";
+import {updateText } from "./quotable.js";
 
 let seconds = 0;
 let timerId;
@@ -19,26 +19,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // if the user is signed in load index.html
     if (user) {
       console.log("User is authenticated");
-      newQuote
     }
     // if not re-route them to the login page
+    /*
     else {
       window.location.href = "log-in.html";
     }
+    */
 
-    newQuote();
-    initialValue = document.getElementById('prompt-input').value;
+    updateText();
+    //initialValue = document.getElementById('prompt-input').value;
   });
 });
 
-document.getElementById("newQuote").addEventListener("click", () => {
-  newQuote();
+document.getElementById("newPrompt").addEventListener("click", () => {
+  updateText();
   seconds = 0;
   clearInterval(timerId);
   updateTimer();
 });
 
-document.getElementById("prompt-input").addEventListener("change", () => {
+document.getElementById("textInput").addEventListener("change", () => {
   let currentValue = this.value;
 
   if (currentValue === initialValue) {

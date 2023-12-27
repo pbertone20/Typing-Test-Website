@@ -5,8 +5,11 @@
         <title>Peter & Claire's Typeria</title>
         <link href="styles/styles.css" rel="stylesheet">
     </head>
-
-    <body onload="updateText()">
+    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/quotable.js"></script>
+    <script type="module" src="firebaseConfig.js"></script>
+    
+    <body>
         <div class="header">
                 <a href="index.html">
                     <button type="button" name="title" class="title">Peter & Claire's Typeria</button>
@@ -25,10 +28,8 @@
             <div class="main-text" id="mainText">quote</div>
             <input type="textarea" class="text-input" id="textInput">
             <div class="option-buttons">
-                <button type="button" class="new-prompt" title="New Prompt" onclick="updateText()">&#8634;</button>
+                <button type="button" class="new-prompt" id="newPrompt" title="New Prompt">&#8634;</button>
             </div>
         </div>
-        <script type="module" src="scripts/main.js"></script>
-        <script type="module" src="firebaseConfig.js"></script>
     </body>
 </html>
