@@ -37,6 +37,7 @@ document.getElementById("newPrompt").addEventListener("click", () => {
   seconds = 0;
   clearInterval(timerId);
   updateTimer();
+  document.getElementById("textInput").value = null
 });
 
 document.getElementById("textInput").addEventListener("change", () => {

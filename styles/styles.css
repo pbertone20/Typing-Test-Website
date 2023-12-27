@@ -86,9 +86,9 @@ body {
 
 .main-text {
     height: 80%;
-    font-size: 25px;
+    font-size: 1.75rem;
     color: #FFFFFF;
-    overflow: scroll;
+    padding: 0.25rem;
 }
 
 .prompt {
@@ -99,12 +99,13 @@ body {
     margin: auto;
     font-size: 1.75rem;
     padding: 0.12rem;
-    border: none;
+    border: solid;
 }
 
 .text-input {
-    width: 99%;
-    height: 78%;
+    top: 15%;
+    width: 100%;
+    height: 80%;
     position: absolute;
     resize: none; 
     background-color: transparent;
@@ -112,7 +113,6 @@ body {
     font-size: 1.75rem;
     color: var(--primary-accent-color);
     font-family: Tahoma;
-    border: solid;
 }
 
 .option-buttons {
