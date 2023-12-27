@@ -7,17 +7,18 @@ function getQuote() {
 }
 
 export async function updateText() {
-   const quoteDisplay = document.getElementById('mainText');
    const text = await getQuote();
-   quoteDisplay.innerHTML = ('');
-   text.split('').forEach(character => {
-      addCharacterToText(character);
-   })
+   changeText(text);
 }
 
-export function addCharacterToText(char) {
+export function changeText(text) {
    const quoteDisplay = document.getElementById('mainText');
-   const characterSpan = document.createElement('span');
-   characterSpan.innerText = char;
-   quoteDisplay.appendChild(characterSpan);
+   quoteDisplay.innerHTML = '';
+   text.split('').forEach(character => {
+      const quoteDisplay = document.getElementById('mainText');
+      const characterSpan = document.createElement('span');
+      characterSpan.innerText = character;
+      quoteDisplay.appendChild(characterSpan);
+   })
+   
 }

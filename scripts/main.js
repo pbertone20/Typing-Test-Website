@@ -1,5 +1,5 @@
 import { auth } from "../firebaseConfig.js";
-import {updateText } from "./quotable.js";
+import {updateText, changeText} from "./quotable.js";
 
 let seconds = 0;
 let timerId;
@@ -55,17 +55,33 @@ document.getElementById("profileButton").addEventListener("click", () => {
 })
 
 document.getElementById("textInput").addEventListener("input", () => {
-  //let currentValue = this.value;
-  let textCharacterArray = document.getElementById("mainText").querySelectorAll('span');
-  let inputText = document.getElementById("textInput").value.split('');
+  //array of prompt span elements
+  let spanArray = document.getElementById("mainText").querySelectorAll('span')
+  //array of prompt characters
+  let textCharacterArray = new Array();
+  spanArray.forEach((span) => {
+    textCharacterArray.push(span.innerText);
+  })
+  //let textCharacterArray = Array.prototype.slice.call(spanArray);
+  //array of input characters
+  let input = document.getElementById("textInput");
+  let inputText = input.value.split('');
+  
+
   textCharacterArray.forEach((CharacterSpan, index) => {
     let currentChar = inputText[index];
     if (currentChar == null) {
-    } else if (currentChar == textCharacterArray[index].innerText) {
-      textCharacterArray[index].className = "correct";
+    } /*else if (currentChar == 127 && spanArray[index].className != "correct") {
+      console.log("delete");
+      textCharacterArray.splice(index, 1);
+      changeText(textCharacterArray.join(''));
+    } */else if (currentChar == textCharacterArray[index]) {
+      spanArray[index].className = "correct";
     } else {
-      
-      textCharacterArray[index].className = "incorrect";
+      textCharacterArray.splice(index, 0, currentChar); //array of characters
+      console.log(textCharacterArray);
+      changeText(textCharacterArray.join(''));
+      spanArray[index].className = "incorrect";
     }
   })
   /*
