@@ -4,10 +4,9 @@
         <meta charset="utf-8">
         <title>Peter & Claire's Typeria</title>
         <link href="styles/styles.css" rel="stylesheet">
-        <script src="scripts/script.js"></script>
     </head>
 
-    <body onload="newQuote()">
+    <body id="text-body">
         <div class="header">
                 <a href="index.html">
                     <button type="button" name="title" class="title">Peter & Claire's Typeria</button>
@@ -21,16 +20,17 @@
 
         <div class="text-prompt">
             <div class="above-text">
-                <div class="timer" id="timer">0</div>
+                <div class="timer" id="timer">0 seconds</div>
             </div>           
             <div class="main-text">
                 <p id="prompt" class="prompt"></p>
-                <textarea id="prompt-input" class="prompt-input" onchange="updateText()" autofocus></textarea>
+                <textarea id="prompt-input" class="prompt-input" autofocus></textarea>
             </div>
             <div class="option-buttons">
-                <button type="button" class="new-prompt" title="New Prompt" onclick="newQuote()">&#8634;</button>
+                <button type="button" class="new-prompt" title="New Prompt" id="newQuote">&#8634;</button>
             </div>
         </div>
-
+        <script type="module" src="scripts/main.js"></script>
+        <script type="module" src="firebaseConfig.js"></script>
     </body>
 </html>

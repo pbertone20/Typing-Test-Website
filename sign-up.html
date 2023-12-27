@@ -25,9 +25,16 @@
                 <label for="username" class="username-label">Username<input type="text" class="username" placeholder="Username" required></label><br>
                 <label for="email" class="email-label">Email<input disabled type="text" class="email" placeholder="Email" title="We don't have the setup to securely store PII"></label><br>
                 <label for="password" class="password-label">Password<input type="text" class="password" placeholder="Password" required></label>
-                <input type="submit" value="Submit" class="log-in-submit">
+                <input type="submit" value="Submit" class="sign-in-submit">
             </form>
+            <div class="google-sign-in">
+                <button class="signInBtn" id="button">Google Sign up</button>
+            </div>
         </fieldset>
     </body>
+
+    <script type="module" src="firebaseConfig.js"></script>
+    <script type="module" src="handleUserAuth.js"></script>
+
     
 </html>
