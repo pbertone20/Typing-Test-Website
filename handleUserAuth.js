@@ -9,7 +9,7 @@ auth.onAuthStateChanged(function (user) {
         console.log("User is logged in:", user.displayName);
 
         // Redirect the user to index.html page 
-        window.location.href = "index.html";
+        // window.location.href = "index.html";
 
         // if the user is signed out
     } else {
