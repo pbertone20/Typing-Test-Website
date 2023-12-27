@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Peter & Claire's Typeria</title>
+        <link href="styles/styles.css" rel="stylesheet">
+    </head>
+    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/quotable.js"></script>
+    <script type="module" src="firebaseConfig.js"></script>
+    
+    <body>
+        <div class="header">
+                <button type="button" class="title" id="titleButton">Peter & Claire's Typeria</button>
+            <div class="profile">
+                <button type="button" class="profile-button" id="profileButton">Profile</button>
+            </div>
+        </div>
+
+        <div class="text-prompt">
+            <div class="above-text">
+                <div class="timer" id="timer">0 seconds</div>
+            </div>           
+            <div class="main-text" id="mainText"></div>
+            <textarea class="text-input" id="textInput" autofocus></textarea>
+            <div class="option-buttons">
+                <button type="button" class="new-prompt" id="newPrompt" title="New Prompt">&#8634;</button>
+            </div>
+        </div>
+    </body>
+</html>
