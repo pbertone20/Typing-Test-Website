@@ -1,4 +1,4 @@
-const RANDOM_QUOTE = "https://api.quotable.io/random"
+const RANDOM_QUOTE = "http://api.quotable.io/random"
 
 function getQuote() {
    return fetch(RANDOM_QUOTE)
