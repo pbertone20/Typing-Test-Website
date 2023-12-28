@@ -1,16 +1,45 @@
 import { auth } from "../firebaseConfig.js";
 import { updateText } from "./quotable.js";
-//import { signOut } from "firebase/auth";
 
 let seconds = 0;
-
+let maxLenReached = false;
+let timerId;
 
 function updateTimer() {
-  document.getElementById("timer").innerText = seconds + " seconds";
+  document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
 }
+
+function resetTimer() {
+  document.getElementById("timer").innerText = 0 + " seconds " + 0 + " WPM";
+}
+
 function updateTimerAndIncrement() {
-  document.getElementById("timer").innerText = seconds + " seconds";
+  document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
   seconds++;
+}
+
+function wpmCalc() {
+  let wordArr = document.getElementById("textInput").value.split(" ");
+  let len = wordArr.length;
+
+  return Math.round(len / (seconds / 60));
+}
+
+function updateWithWPM(inputLen, quoteLen) {
+  if (inputLen == 1 || quoteLen == null) {
+    console.log("Timer started with ID", timerId);
+    timerId = setInterval( () => {
+      if (maxLenReached === false) {
+        updateTimerAndIncrement();
+      }
+    }, 1000);
+  }
+
+  if (inputLen === quoteLen) {
+    maxLenReached = true;
+    document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
+    console.log("Timer paused with ID");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,7 +65,9 @@ document.getElementById("titleButton").addEventListener("click", () => {
 function newPrompt() {
   updateText();
   seconds = 0;
-  updateTimer();
+  timerId = clearInterval(timerId);
+  resetTimer();
+  console.log("Timer ended with id", timerId);
   document.getElementById("textInput").value = null;
 }
 
@@ -57,6 +88,8 @@ document.getElementById("textInput").addEventListener("input", () => {
       textCharacterArray[index].className = "incorrect";
     }
   })
+
+  updateWithWPM(inputText.length, textCharacterArray.length);
 });
 
 function signOutGoogleUser() {
