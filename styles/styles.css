@@ -20,6 +20,10 @@ body {
     text-decoration: underline;
 }
 
+.invalid {
+    color: #c1c1c1;
+}
+
 .header {
     height: 20%;
     background-color: #FFFFFF;
@@ -107,7 +111,6 @@ body {
     background-color: transparent;
     margin: auto;
     font-size: 1.75rem;
-    padding: 0.12rem;
     border: solid;
 }
 
@@ -124,6 +127,7 @@ body {
     caret-color: var(--primary-accent-color);
     font-family: Tahoma;
     border: none;
+    padding: 0.25rem;
 }
 
 .option-buttons {
