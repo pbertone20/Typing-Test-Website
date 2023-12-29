@@ -107,27 +107,39 @@ document.getElementById("textInput").addEventListener("input", () => {
         CharacterSpan.className = "invalid"
         textInput.value += CharacterSpan.innerText;
       }
-    }
+    } else {
 
-    // When input is backspace
-    if (currentChar == null) {
-      if (CharacterSpan.className == "incorrect") {
-        CharacterSpan.className = "remove";
-      } else if (CharacterSpan.className != "invalid") { 
-        CharacterSpan.className = "";
+      // When input is backspace
+      if (currentChar == null) {
+        if (CharacterSpan.className == "incorrect") {
+          CharacterSpan.className = "remove";
+        } else if (CharacterSpan.className == "invalid") {
+          let currentInvalid = CharacterSpan;
+          let i = index;
+          while (currentInvalid.className == "invalid") {
+            i = i - 1;
+            currentInvalid.className = "";
+            currentInvalid = spanArray[i];
+          }
+          textInput.selectionEnd = textInput.selectionEnd + ((i - index) + 1);
+          textInput.value = textInput.value.slice(0, (i - index + 1));
+        } else { 
+          CharacterSpan.className = "";
+        }
+
+      // When the new character is correct
+      } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+        CharacterSpan.className = "correct";
+
+      // Adding new incorrect characters
+      } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+        let newCharacter = document.createElement('span');
+        newCharacter.innerText = currentChar;
+        newCharacter.className = "incorrect";
+        quoteDisplay.appendChild(newCharacter);
       }
 
-    // When the new character is correct
-    } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-      CharacterSpan.className = "correct";
-
-    // Adding new incorrect characters
-    } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-      let newCharacter = document.createElement('span');
-      newCharacter.innerText = currentChar;
-      newCharacter.className = "incorrect";
-      quoteDisplay.appendChild(newCharacter);
-    }
+    } 
 
     // Adds back all characters not marked for removal
     if (CharacterSpan.className != "remove") {
