@@ -26,7 +26,8 @@ function wpmCalc() {
 }
 
 function updateWithWPM(inputLen, quoteLen) {
-  if (inputLen == 1 || quoteLen == null) {
+  if (inputLen == 1) {
+    maxLenReached = false;
     console.log("Timer started with ID", timerId);
     timerId = setInterval( () => {
       if (maxLenReached === false) {
@@ -38,7 +39,7 @@ function updateWithWPM(inputLen, quoteLen) {
   if (inputLen === quoteLen) {
     maxLenReached = true;
     document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
-    console.log("Timer paused with ID");
+    console.log("Timer paused with ID", timerId);
   }
 }
 
@@ -64,11 +65,12 @@ document.getElementById("titleButton").addEventListener("click", () => {
 
 function newPrompt() {
   updateText();
-  seconds = 0;
-  timerId = clearInterval(timerId);
-  resetTimer();
+  clearInterval(timerId);
   console.log("Timer ended with id", timerId);
+  seconds = 0;
+  maxLenReached = false;
   document.getElementById("textInput").value = null;
+  resetTimer();
 }
 
 document.getElementById("profileButton").addEventListener("click", () => {
