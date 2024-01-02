@@ -1,9 +1,11 @@
 import { auth } from "../firebaseConfig.js";
-import { updateText } from "./quotable.js";
+import { getQuote } from "./quotable.js";
+import { TypingTest } from "./TypingTest.js";
 
 let seconds = 0;
 let maxLenReached = false;
 let timerId;
+let test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
 
 function updateTimer() {
   document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
@@ -54,24 +56,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("newPrompt").addEventListener("click", () => {
-  newPrompt();
+  test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
   document.getElementById("textInput").focus();
 });
 
 document.getElementById("titleButton").addEventListener("click", () => {
   window.location.replace("index.html");
-  newPrompt();
+  test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
 })
-
-function newPrompt() {
-  updateText();
-  clearInterval(timerId);
-  console.log("Timer ended with id", timerId);
-  seconds = 0;
-  maxLenReached = false;
-  document.getElementById("textInput").value = null;
-  resetTimer();
-}
 
 document.getElementById("profileButton").addEventListener("click", () => {
   window.location.replace("log-in.html");
