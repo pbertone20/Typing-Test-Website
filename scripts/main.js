@@ -1,11 +1,25 @@
 import { auth } from "../firebaseConfig.js";
-import { getQuote } from "./quotable.js";
 import { TypingTest } from "./TypingTest.js";
+
+const RANDOM_QUOTE = "http://api.quotable.io/random"
+
+function getQuote() {
+   return fetch(RANDOM_QUOTE)
+      .then(response => response.json())
+      .then(data => data.content)
+}
+
+let bruh = "hi this is claire";
 
 let seconds = 0;
 let maxLenReached = false;
 let timerId;
-let test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
+let test;
+getNewTest();
+
+async function getNewTest() {
+  test =  new TypingTest(await getQuote(), "mainText", "textInput");
+}
 
 function updateTimer() {
   document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
@@ -51,98 +65,27 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("User is authenticated");
     }
 
-    updateText();
+    test = getNewTest();
   });
 });
 
 document.getElementById("newPrompt").addEventListener("click", () => {
-  test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
+  getNewTest();
   document.getElementById("textInput").focus();
 });
 
 document.getElementById("titleButton").addEventListener("click", () => {
   window.location.replace("index.html");
-  test = new TypingTest(getQuote(), document.getElementById("textInput"), document.getElementById("textInput"));
+  getNewTest();
 })
 
 document.getElementById("profileButton").addEventListener("click", () => {
   window.location.replace("log-in.html");
 })
 
-/*
 document.getElementById("textInput").addEventListener("input", () => {
-  let quoteDisplay = document.getElementById("mainText");
-  //array of prompt span elements
-  let spanArray = document.getElementById("mainText").querySelectorAll('span')
-  let textInput = document.getElementById("textInput");
-  //array of input characters
-  let inputArray = textInput.value.split('');
-
-  let space = false;
-
-  quoteDisplay.innerHTML = "";
-  spanArray.forEach((CharacterSpan, index) => {
-    let currentChar = inputArray[index];
-  
-    if (currentChar == " " || space == true) {
-      console.log("invalid");
-      if (CharacterSpan.innerText == " ") {
-        space = false;
-        if (currentChar != " "){
-          textInput.value += " ";
-        }
-      } else {
-        if (space == false && index + 1 == inputArray.length) {
-          space = true;
-          textInput.selectionEnd = textInput.selectionEnd - 1;
-          textInput.value = textInput.value.slice(0, -1);
-        }
-        CharacterSpan.className = "invalid"
-        textInput.value += CharacterSpan.innerText;
-      }
-    } else {
-
-      // When input is backspace
-      if (currentChar == null) {
-        if (CharacterSpan.className == "incorrect") {
-          CharacterSpan.className = "remove";
-        } else if (CharacterSpan.className == "invalid") {
-          let currentInvalid = CharacterSpan;
-          let i = index;
-          while (currentInvalid.className == "invalid") {
-            i = i - 1;
-            currentInvalid.className = "";
-            currentInvalid = spanArray[i];
-          }
-          textInput.selectionEnd = textInput.selectionEnd + ((i - index) + 1);
-          textInput.value = textInput.value.slice(0, (i - index + 1));
-        } else { 
-          CharacterSpan.className = "";
-        }
-
-      // When the new character is correct
-      } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-        CharacterSpan.className = "correct";
-
-      // Adding new incorrect characters
-      } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-        let newCharacter = document.createElement('span');
-        newCharacter.innerText = currentChar;
-        newCharacter.className = "incorrect";
-        quoteDisplay.appendChild(newCharacter);
-      }
-
-    } 
-
-    // Adds back all characters not marked for removal
-    if (CharacterSpan.className != "remove") {
-      quoteDisplay.appendChild(CharacterSpan);
-    }
-  })
-
-  updateWithWPM(textInput.value.length, inputArray.length);
+  test.updateTest();
 });
-*/
 
 function signOutGoogleUser() {
   auth.signOut().then(() => {

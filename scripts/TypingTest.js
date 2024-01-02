@@ -1,158 +1,147 @@
 export class TypingTest {
-    display;
-    input;
-    text;
-    constructor(newText, displayElement, inputElement) {
-        try {
-            this.setTestDisplay(displayElement);
-            this.setTestInput(inputElement);
-            this.setTestText(newText);
+  display;
+  input;
+  text;
 
-            this.displayText();
-            this.testLength = getTestLength();
+  constructor(newText, displayID, inputID) {
+    try {
+      this.setTestDisplay(displayID);
+      this.setTestInput(inputID);
+      this.text = newText;
+
+      this.displayText();
+      this.testLength = this.getTestLength();
+
+    } catch(err) {
+      this.setTestDisplay(null);
+      this.setTestText(null);
+      this.setTestInput(null);
+      this.testLength = 0;
+    }
+
+    this.testTime = 0.0;
+    this.correctWords = 0;
+    this.wpm = 0;
+    this.testStart = false;
+    this.updateTest();
+  }
+
+  /**
+   * 
+   * @param {the text for the test} text 
+   */
+  setTestText(newText) {
+    this.text = newText;
+  }
+
+  /**
+   * 
+   * @param {input element for the test} inputElement 
+   */
+  setTestInput(inputID) {
+    this.input = document.getElementById(inputID);
+    this.input.value = "";
+  }
+
+  /**
+   * 
+   * @param {div element where the test text is displayed} displayElement 
+   */
+  setTestDisplay(displayID) {
+    this.display = document.getElementById(displayID);
+    this.display.innerHTML = ("");
+  }
+
+  /**
+   * Places the test text into the provided div area
+   * 
+   * @param {The div area where the text appears} displayDiv 
+   */
+  displayText() {
+    try {
+      this.display.innerHTML = ('');
+      this.text.split('').forEach(char => {
+        let characterSpan = document.createElement('span');
+        characterSpan.innerText = char;
+        this.display.appendChild(characterSpan);
+      })
+    } catch(err) {
+      console.log("it broke :(");
+    }
+  }
+
+  getTestLength() {
+      return this.text.split(" ").length;
+  }
+
+  updateTest() {
+    if (this.testStart == false) {
+      this.testStart = true;
+    }
+
+    let spanArray = this.display.querySelectorAll('span')
+    let inputArray = this.input.value.split('');
+  
+    let space = false;
+  
+    this.display.innerHTML = "";
+    spanArray.forEach((CharacterSpan, index) => {
+      let currentChar = inputArray[index];
     
-        } catch(err) {
-            this.setTestDisplay(null);
-            this.setTestText(null);
-            this.setTestInput(null);
-            testLength = 0;
-        }
-
-        this.testTime = 0.0;
-        this.correctWords = 0;
-        this.wpm = 0;
-    }
-
-    /**
-     * 
-     * @param {the text for the test} text 
-     */
-    setTestText(newText) {
-        if (newText.type == "string" && newText != "") {
-            this.text = newText;
-        } else {
-            this.text = null;
-        }
-    }
-
-    /**
-     * 
-     * @param {input element for the test} inputElement 
-     */
-    setTestInput(inputElement) {
-        if (inputElement.type == "text" || inputElement.type == "textarea") {
-            this.input = inputElement;
-            this.input.value = "";
-        } else  {
-            this.input = null;
-        }
-    }
-
-    /**
-     * 
-     * @param {div element where the test text is displayed} displayElement 
-     */
-    setTestDisplay(displayElement) {
-        displayElement.innerHTML = "";
-        this.input = displayElement;
-    }
-
-    /**
-     * Places the test text into the provided div area
-     * 
-     * @param {The div area where the text appears} displayDiv 
-     */
-    displayText() {
-        this.display.innerHTML = ('');
-        this.text.split('').forEach(char => {
-            let characterSpan = document.createElement('span');
-            characterSpan.innerText = char;
-            this.display.appendChild(characterSpan);
-        })
-    }
-
-    getTestLength() {
-        return this.text.split(" ").length;
-    }
-
-    input.addEventListener("input", () => {
-        let quoteDisplay = document.getElementById("mainText");
-        //array of prompt span elements
-        let spanArray = document.getElementById("mainText").querySelectorAll('span')
-        let textInput = document.getElementById("textInput");
-        //array of input characters
-        let inputArray = textInput.value.split('');
-      
-        let space = false;
-      
-        quoteDisplay.innerHTML = "";
-        spanArray.forEach((CharacterSpan, index) => {
-          let currentChar = inputArray[index];
-        
-          if (currentChar == " " || space == true) {
-            console.log("invalid");
-            if (CharacterSpan.innerText == " ") {
-              space = false;
-              if (currentChar != " "){
-                textInput.value += " ";
-              }
-            } else {
-              if (space == false && index + 1 == inputArray.length) {
-                space = true;
-                textInput.selectionEnd = textInput.selectionEnd - 1;
-                textInput.value = textInput.value.slice(0, -1);
-              }
-              CharacterSpan.className = "invalid"
-              textInput.value += CharacterSpan.innerText;
-            }
-          } else {
-      
-            // When input is backspace
-            if (currentChar == null) {
-              if (CharacterSpan.className == "incorrect") {
-                CharacterSpan.className = "remove";
-              } else if (CharacterSpan.className == "invalid") {
-                let currentInvalid = CharacterSpan;
-                let i = index;
-                while (currentInvalid.className == "invalid") {
-                  i = i - 1;
-                  currentInvalid.className = "";
-                  currentInvalid = spanArray[i];
-                }
-                textInput.selectionEnd = textInput.selectionEnd + ((i - index) + 1);
-                textInput.value = textInput.value.slice(0, (i - index + 1));
-              } else { 
-                CharacterSpan.className = "";
-              }
-      
-            // When the new character is correct
-            } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-              CharacterSpan.className = "correct";
-      
-            // Adding new incorrect characters
-            } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-              let newCharacter = document.createElement('span');
-              newCharacter.innerText = currentChar;
-              newCharacter.className = "incorrect";
-              quoteDisplay.appendChild(newCharacter);
-            }
-      
-          } 
-      
-          // Adds back all characters not marked for removal
-          if (CharacterSpan.className != "remove") {
-            quoteDisplay.appendChild(CharacterSpan);
+      if (currentChar == " " || space == true) {
+        if (CharacterSpan.innerText == " ") {
+          space = false;
+          if (currentChar != " "){
+            this.input.value += " ";
           }
-        })
-      
-        updateWithWPM(textInput.value.length, inputArray.length);
-      });
-      
-      function signOutGoogleUser() {
-        auth.signOut().then(() => {
-          console.log("Sign out successful...");
-        }).catch((error) => {
-          console.log(error);
-        });
+        } else {
+          if (space == false && index + 1 == inputArray.length) {
+            space = true;
+            this.input.selectionEnd = this.input.selectionEnd - 1;
+            this.input.value = this.input.value.slice(0, -1);
+          }
+          CharacterSpan.className = "invalid"
+          this.input.value += CharacterSpan.innerText;
+        }
+      } else {
+        // When input is backspace
+        if (currentChar == null) {
+          if (CharacterSpan.className == "incorrect") {
+            CharacterSpan.className = "remove";
+          } else if (CharacterSpan.className == "invalid") {
+            let currentInvalid = CharacterSpan;
+            let i = index;
+            while (currentInvalid.className == "invalid") {
+              i = i - 1;
+              currentInvalid.className = "";
+              currentInvalid = spanArray[i];
+            }
+            this.input.selectionEnd = this.input.selectionEnd + ((i - index) + 1);
+            this.input.value = this.input.value.slice(0, (i - index + 1));
+          } else { 
+            CharacterSpan.className = "";
+          }
+  
+        // When the new character is correct
+        } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+          CharacterSpan.className = "correct";
+  
+        // Adding new incorrect characters
+        } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+          let newCharacter = document.createElement('span');
+          newCharacter.innerText = currentChar;
+          newCharacter.className = "incorrect";
+          this.display.appendChild(newCharacter);
+        }
+  
+      } 
+  
+      // Adds back all characters not marked for removal
+      if (CharacterSpan.className != "remove") {
+        this.display.appendChild(CharacterSpan);
       }
+    })
+  
+    //updateWithWPM(this.input.value.length, inputArray.length);
+  }
 }
