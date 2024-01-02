@@ -8,7 +8,7 @@ export class TypingTest {
             this.setTestInput(inputElement);
             this.setTestText(newText);
 
-            this.displayText(display);
+            this.displayText();
             this.testLength = getTestLength();
     
         } catch(err) {
@@ -40,11 +40,12 @@ export class TypingTest {
      * @param {input element for the test} inputElement 
      */
     setTestInput(inputElement) {
-        if (inputElement.type == "text") {
-            
+        if (inputElement.type == "text" || inputElement.type == "textarea") {
+            this.input = inputElement;
+            this.input.value = "";
+        } else  {
+            this.input = null;
         }
-        inputElement.innerHTML = "";
-        this.input = inputElement;
     }
 
     /**
@@ -63,7 +64,7 @@ export class TypingTest {
      */
     displayText() {
         this.display.innerHTML = ('');
-        this.testText.split('').forEach(char => {
+        this.text.split('').forEach(char => {
             let characterSpan = document.createElement('span');
             characterSpan.innerText = char;
             this.display.appendChild(characterSpan);

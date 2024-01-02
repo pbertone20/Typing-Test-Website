@@ -69,6 +69,7 @@ document.getElementById("profileButton").addEventListener("click", () => {
   window.location.replace("log-in.html");
 })
 
+/*
 document.getElementById("textInput").addEventListener("input", () => {
   let quoteDisplay = document.getElementById("mainText");
   //array of prompt span elements
@@ -141,6 +142,7 @@ document.getElementById("textInput").addEventListener("input", () => {
 
   updateWithWPM(textInput.value.length, inputArray.length);
 });
+*/
 
 function signOutGoogleUser() {
   auth.signOut().then(() => {
