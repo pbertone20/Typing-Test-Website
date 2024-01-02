@@ -78,20 +78,76 @@ document.getElementById("profileButton").addEventListener("click", () => {
 })
 
 document.getElementById("textInput").addEventListener("input", () => {
-  let textCharacterArray = document.getElementById("mainText").querySelectorAll('span');
-  let inputText = document.getElementById("textInput").value.split('');
-  textCharacterArray.forEach((CharacterSpan, index) => {
-    let currentChar = inputText[index];
-    if (currentChar == null) {
-    } else if (currentChar == textCharacterArray[index].innerText) {
-      textCharacterArray[index].className = "correct";
+  let quoteDisplay = document.getElementById("mainText");
+  //array of prompt span elements
+  let spanArray = document.getElementById("mainText").querySelectorAll('span')
+  let textInput = document.getElementById("textInput");
+  //array of input characters
+  let inputArray = textInput.value.split('');
+
+  let space = false;
+
+  quoteDisplay.innerHTML = "";
+  spanArray.forEach((CharacterSpan, index) => {
+    let currentChar = inputArray[index];
+  
+    if (currentChar == " " || space == true) {
+      console.log("invalid");
+      if (CharacterSpan.innerText == " ") {
+        space = false;
+        if (currentChar != " "){
+          textInput.value += " ";
+        }
+      } else {
+        if (space == false && index + 1 == inputArray.length) {
+          space = true;
+          textInput.selectionEnd = textInput.selectionEnd - 1;
+          textInput.value = textInput.value.slice(0, -1);
+        }
+        CharacterSpan.className = "invalid"
+        textInput.value += CharacterSpan.innerText;
+      }
     } else {
 
-      textCharacterArray[index].className = "incorrect";
+      // When input is backspace
+      if (currentChar == null) {
+        if (CharacterSpan.className == "incorrect") {
+          CharacterSpan.className = "remove";
+        } else if (CharacterSpan.className == "invalid") {
+          let currentInvalid = CharacterSpan;
+          let i = index;
+          while (currentInvalid.className == "invalid") {
+            i = i - 1;
+            currentInvalid.className = "";
+            currentInvalid = spanArray[i];
+          }
+          textInput.selectionEnd = textInput.selectionEnd + ((i - index) + 1);
+          textInput.value = textInput.value.slice(0, (i - index + 1));
+        } else { 
+          CharacterSpan.className = "";
+        }
+
+      // When the new character is correct
+      } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+        CharacterSpan.className = "correct";
+
+      // Adding new incorrect characters
+      } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
+        let newCharacter = document.createElement('span');
+        newCharacter.innerText = currentChar;
+        newCharacter.className = "incorrect";
+        quoteDisplay.appendChild(newCharacter);
+      }
+
+    } 
+
+    // Adds back all characters not marked for removal
+    if (CharacterSpan.className != "remove") {
+      quoteDisplay.appendChild(CharacterSpan);
     }
   })
 
-  updateWithWPM(inputText.length, textCharacterArray.length);
+  updateWithWPM(textInput.value.length, inputArray.length);
 });
 
 function signOutGoogleUser() {
