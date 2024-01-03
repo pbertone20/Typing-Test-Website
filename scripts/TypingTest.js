@@ -1,3 +1,6 @@
+/**
+ * a class that represents the main functions of the typing test
+ */
 export class TypingTest {
   display;
   input;

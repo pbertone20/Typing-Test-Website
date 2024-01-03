@@ -1,3 +1,6 @@
+/**
+ * a class that represents the timer for the typing test
+ */
 export class Timer {
     constructor(start, end, dir, displayID) {
         this.startTime = start;
