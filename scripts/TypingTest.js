@@ -3,7 +3,7 @@ export class TypingTest {
   input;
   text;
 
-  constructor(newText, displayID, inputID) {
+  constructor(newText, displayID, inputID, timerObj) {
     try {
       this.setTestDisplay(displayID);
       this.setTestInput(inputID);
@@ -19,14 +19,14 @@ export class TypingTest {
       this.testLength = 0;
     }
 
-    this.testTime = 0.0;
+    this.timer = timerObj;
     this.correctWords = 0;
-    this.wpm = 0;
     this.testStart = false;
     this.updateTest();
   }
 
   /**
+   * Sets the text field to the input text
    * 
    * @param {the text for the test} text 
    */
@@ -35,6 +35,7 @@ export class TypingTest {
   }
 
   /**
+   * Sets the input field to the object with ID inputID 
    * 
    * @param {input element for the test} inputElement 
    */
@@ -44,6 +45,7 @@ export class TypingTest {
   }
 
   /**
+   * Sets the display field to the object with ID displayID
    * 
    * @param {div element where the test text is displayed} displayElement 
    */
@@ -70,39 +72,50 @@ export class TypingTest {
     }
   }
 
+  /**
+   * Gets the length of test text
+   * 
+   * @returns the length of the text in words
+   */
   getTestLength() {
-      return this.text.split(" ").length;
+    return this.text.split(" ").length;
   }
 
+  /**
+   * Updates the visible test text with the correct css classes
+   */
   updateTest() {
-    if (this.testStart == false) {
+    console.log("updateTest");
+    if (this.testStart == false && this.input.value.length != 0) {
+      this.timer.start();
       this.testStart = true;
     }
-
     let spanArray = this.display.querySelectorAll('span')
     let inputArray = this.input.value.split('');
-  
-    let space = false;
+    let skipLetter = false;
   
     this.display.innerHTML = "";
     spanArray.forEach((CharacterSpan, index) => {
+
       let currentChar = inputArray[index];
-    
-      if (currentChar == " " || space == true) {
+      if (currentChar == " " || skipLetter == true) {
         if (CharacterSpan.innerText == " ") {
-          space = false;
+          skipLetter = false;
           if (currentChar != " "){
+            // adds back a space at the end of the skipped word
             this.input.value += " ";
           }
         } else {
-          if (space == false && index + 1 == inputArray.length) {
-            space = true;
+          if (skipLetter == false && index + 1 == inputArray.length) {
+            // you first press space
+            skipLetter = true;
             this.input.selectionEnd = this.input.selectionEnd - 1;
             this.input.value = this.input.value.slice(0, -1);
           }
           CharacterSpan.className = "invalid"
           this.input.value += CharacterSpan.innerText;
         }
+
       } else {
         // When input is backspace
         if (currentChar == null) {

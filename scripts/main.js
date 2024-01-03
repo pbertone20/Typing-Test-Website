@@ -1,37 +1,25 @@
 import { auth } from "../firebaseConfig.js";
 import { TypingTest } from "./TypingTest.js";
+import { Timer } from "./Timer.js";
 
 const RANDOM_QUOTE = "http://api.quotable.io/random"
-
-function getQuote() {
-   return fetch(RANDOM_QUOTE)
-      .then(response => response.json())
-      .then(data => data.content)
-}
-
-let bruh = "hi this is claire";
 
 let seconds = 0;
 let maxLenReached = false;
 let timerId;
 let test;
+let timer;
 getNewTest();
 
+function getQuote() {
+  return fetch(RANDOM_QUOTE)
+    .then(response => response.json())
+    .then(data => data.content)
+}
+
 async function getNewTest() {
-  test =  new TypingTest(await getQuote(), "mainText", "textInput");
-}
-
-function updateTimer() {
-  document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
-}
-
-function resetTimer() {
-  document.getElementById("timer").innerText = 0 + " seconds " + 0 + " WPM";
-}
-
-function updateTimerAndIncrement() {
-  document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
-  seconds++;
+  timer = new Timer(0, 99999999, 1, "timer");
+  test =  new TypingTest(await getQuote(), "mainText", "textInput", timer);
 }
 
 function wpmCalc() {
@@ -39,24 +27,6 @@ function wpmCalc() {
   let len = wordArr.length;
 
   return Math.round(len / (seconds / 60));
-}
-
-function updateWithWPM(inputLen, quoteLen) {
-  if (inputLen == 1) {
-    maxLenReached = false;
-    console.log("Timer started with ID", timerId);
-    timerId = setInterval( () => {
-      if (maxLenReached === false) {
-        updateTimerAndIncrement();
-      }
-    }, 1000);
-  }
-
-  if (inputLen === quoteLen) {
-    maxLenReached = true;
-    document.getElementById("timer").innerText = seconds + " seconds " + wpmCalc() + " WPM";
-    console.log("Timer paused with ID", timerId);
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
