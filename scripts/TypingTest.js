@@ -2,66 +2,20 @@
  * a class that represents the main functions of the typing test
  */
 export class TypingTest {
-  display;
-  input;
+  display = document.getElementById("mainText");
+  input = document.getElementById("textInput");
   text;
 
-  constructor(newText, displayID, inputID, timerObj) {
-    try {
-      this.setTestDisplay(displayID);
-      this.setTestInput(inputID);
-      this.text = newText;
-
-      this.displayText();
-      this.testLength = this.getTestLength();
-
-    } catch(err) {
-      this.setTestDisplay(null);
-      this.setTestText(null);
-      this.setTestInput(null);
-      this.testLength = 0;
-    }
-
+  constructor(newText, timerObj) {
+    this.text = newText;
+    this.displayText();
+    this.testLength = this.getTestLength();
     this.timer = timerObj;
     this.correctWords = 0;
     this.testStart = false;
     this.updateTest();
   }
 
-  /**
-   * Sets the text field to the input text
-   * 
-   * @param {the text for the test} text 
-   */
-  setTestText(newText) {
-    this.text = newText;
-  }
-
-  /**
-   * Sets the input field to the object with ID inputID 
-   * 
-   * @param {input element for the test} inputElement 
-   */
-  setTestInput(inputID) {
-    this.input = document.getElementById(inputID);
-    this.input.value = "";
-  }
-
-  /**
-   * Sets the display field to the object with ID displayID
-   * 
-   * @param {div element where the test text is displayed} displayElement 
-   */
-  setTestDisplay(displayID) {
-    this.display = document.getElementById(displayID);
-    this.display.innerHTML = ("");
-  }
-
-  /**
-   * Places the test text into the provided div area
-   * 
-   * @param {The div area where the text appears} displayDiv 
-   */
   displayText() {
     try {
       this.display.innerHTML = ('');
@@ -71,7 +25,7 @@ export class TypingTest {
         this.display.appendChild(characterSpan);
       })
     } catch(err) {
-      console.log("it broke :(");
+      alert("it broke :(");
     }
   }
 
@@ -84,16 +38,25 @@ export class TypingTest {
     return this.text.split(" ").length;
   }
 
+  reset(newText) {
+    this.text = newText;
+    this.timer.reset();
+    this.correctWords = 0;
+    this.displayText();
+  }
+
   /**
    * Updates the visible test text with the correct css classes
    */
   updateTest() {
+    let currentWord = 0;
+
     console.log("updateTest");
     if (this.testStart == false && this.input.value.length != 0) {
       this.timer.start();
       this.testStart = true;
     }
-    let spanArray = this.display.querySelectorAll('span')
+    let spanArray = this.display.querySelectorAll('span');
     let inputArray = this.input.value.split('');
     let skipLetter = false;
   
@@ -114,8 +77,9 @@ export class TypingTest {
             skipLetter = true;
             this.input.selectionEnd = this.input.selectionEnd - 1;
             this.input.value = this.input.value.slice(0, -1);
+            currentWord += 1;
           }
-          CharacterSpan.className = "invalid"
+          CharacterSpan.className = "invalid";
           this.input.value += CharacterSpan.innerText;
         }
 

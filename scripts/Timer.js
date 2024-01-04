@@ -41,6 +41,7 @@ export class Timer {
      * sets the current time back to start time
      */
     reset() {
+        this.stop();
         this.currentTime = this.startTime;
     }
 
