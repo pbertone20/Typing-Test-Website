@@ -4,9 +4,9 @@ import { Timer } from "./Timer.js";
 
 const RANDOM_QUOTE = "http://api.quotable.io/random"
 
+
 let timer = new Timer(0, 99999999, 1, "timer");
 let test = new TypingTest(await getQuote(), timer);
-
 /**
  * gets a new text prompt for the typing test
  * 
