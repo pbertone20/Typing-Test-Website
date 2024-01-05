@@ -53,15 +53,20 @@ document.getElementById("newPrompt").addEventListener("click", () => {
 
 document.getElementById("titleButton").addEventListener("click", () => {
   window.location.replace("index.html");
-  getNewTest();
-})
+  //getNewTest();
+});
 
 document.getElementById("profileButton").addEventListener("click", () => {
   window.location.replace("log-in.html");
-})
+});
 
 document.getElementById("textInput").addEventListener("input", () => {
   test.updateTest();
 });
 
 document.getElementById("signOutBtn").addEventListener("click", signOutGoogleUser);
+
+document.getElementById("testFocus").addEventListener("click", () => {
+  console.log("bruh wtf");
+  document.getElementById("textInput").focus();
+});

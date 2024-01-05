@@ -2,7 +2,7 @@
  * a class that represents the main functions of the typing test
  */
 export class TypingTest {
-  display = document.getElementById("mainText");
+  display = document.getElementById("testText");
   input = document.getElementById("textInput");
   text;
 
@@ -11,22 +11,28 @@ export class TypingTest {
     this.displayText();
     this.testLength = this.getTestLength();
     this.timer = timerObj;
-    this.correctWords = 0;
-    this.testStart = false;
-    this.updateTest();
+    this.currentWord = 0;
+    this.currentLetter = 0;
+    this.testStarted = false;
   }
 
+  /**
+   * formats and displays the text in the test div box
+   */
   displayText() {
-    try {
-      this.display.innerHTML = ('');
-      this.text.split('').forEach(char => {
-        let characterSpan = document.createElement('span');
-        characterSpan.innerText = char;
-        this.display.appendChild(characterSpan);
-      })
-    } catch(err) {
-      alert("it broke :(");
-    }
+    this.display.innerHTML = ('');
+    this.text.split(' ').forEach(word => {
+      const wordDiv = document.createElement('div');
+      wordDiv.className = 'word';
+      wordDiv.innerHTML = '';
+      word.split('').forEach(char => {
+        const charSpan = document.createElement('span');
+        charSpan.innerHTML = char;
+        wordDiv.appendChild(charSpan);
+      });
+      wordDiv.innerHTML += ' ';
+      this.display.appendChild(wordDiv);
+    })
   }
 
   /**
@@ -38,90 +44,67 @@ export class TypingTest {
     return this.text.split(" ").length;
   }
 
+  /**
+   * resets the typing test and sets new text prompt
+   * 
+   * @param {a string of text for test prompt} newText 
+   */
   reset(newText) {
     this.text = newText;
     this.timer.reset();
-    this.correctWords = 0;
+    this.currentWord = 0;
+    this.currentLetter = 0;
     this.displayText();
+    this.testStarted = false;
+    this.input.value = '';
   }
 
   /**
-   * Updates the visible test text with the correct css classes
+   * wrapper method for the Timer start method
+   */
+  startTimer() {
+    if (this.input.value != '' && this.testStarted == false) {
+      this.timer.start();
+      this.testStarted = true;
+    }
+  }
+
+  /**
+   * goes to the next word in the test
+   */
+  nextWord() {
+    this.currentWord += 1;
+    this.currentLetter = 0;
+    this.input.value = '';
+  }
+
+  /**
+   * updates the display of the text in response to the users input
    */
   updateTest() {
-    let currentWord = 0;
+    this.startTimer();
+    let wordArray = this.display.querySelectorAll('div');
+    let letterArray = wordArray[this.currentWord].childNodes;
+    const char = this.input.value.slice(-1);
 
-    console.log("updateTest");
-    if (this.testStart == false && this.input.value.length != 0) {
-      this.timer.start();
-      this.testStart = true;
-    }
-    let spanArray = this.display.querySelectorAll('span');
-    let inputArray = this.input.value.split('');
-    let skipLetter = false;
-  
-    this.display.innerHTML = "";
-    spanArray.forEach((CharacterSpan, index) => {
-
-      let currentChar = inputArray[index];
-      if (currentChar == " " || skipLetter == true) {
-        if (CharacterSpan.innerText == " ") {
-          skipLetter = false;
-          if (currentChar != " "){
-            // adds back a space at the end of the skipped word
-            this.input.value += " ";
-          }
-        } else {
-          if (skipLetter == false && index + 1 == inputArray.length) {
-            // you first press space
-            skipLetter = true;
-            this.input.selectionEnd = this.input.selectionEnd - 1;
-            this.input.value = this.input.value.slice(0, -1);
-            currentWord += 1;
-          }
-          CharacterSpan.className = "invalid";
-          this.input.value += CharacterSpan.innerText;
-        }
-
+    if (this.input.value.length < this.currentLetter) {
+      if (letterArray[this.currentLetter].className == 'incorrect') {
+        console.log("hii");
       } else {
-        // When input is backspace
-        if (currentChar == null) {
-          if (CharacterSpan.className == "incorrect") {
-            CharacterSpan.className = "remove";
-          } else if (CharacterSpan.className == "invalid") {
-            let currentInvalid = CharacterSpan;
-            let i = index;
-            while (currentInvalid.className == "invalid") {
-              i = i - 1;
-              currentInvalid.className = "";
-              currentInvalid = spanArray[i];
-            }
-            this.input.selectionEnd = this.input.selectionEnd + ((i - index) + 1);
-            this.input.value = this.input.value.slice(0, (i - index + 1));
-          } else { 
-            CharacterSpan.className = "";
-          }
-  
-        // When the new character is correct
-        } else if (currentChar == CharacterSpan.innerText && CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-          CharacterSpan.className = "correct";
-  
-        // Adding new incorrect characters
-        } else if (CharacterSpan.className != "incorrect" && CharacterSpan.className != "invalid") {
-          let newCharacter = document.createElement('span');
-          newCharacter.innerText = currentChar;
-          newCharacter.className = "incorrect";
-          this.display.appendChild(newCharacter);
-        }
-  
-      } 
-  
-      // Adds back all characters not marked for removal
-      if (CharacterSpan.className != "remove") {
-        this.display.appendChild(CharacterSpan);
+        letterArray.className = '';
       }
-    })
-  
-    //updateWithWPM(this.input.value.length, inputArray.length);
+      this.currentLetter -= 1;
+    } else if (char == ' ') {
+      this.nextWord();
+    } else if (char == letterArray[this.currentLetter].innerText) {
+      letterArray[this.currentLetter].className = 'correct';
+      this.currentLetter += 1;
+    } else {
+      const wrongLetter = document.createElement('span');
+      wrongLetter.innerText = char;
+      wrongLetter.className = 'incorrect';
+      letterArray[this.currentLetter].prepend(wrongLetter);
+      this.currentLetter += 1;
+    }
   }
 }

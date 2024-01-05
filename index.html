@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Peter & Claire's Typeria</title>
         <link href="styles/styles.css" rel="stylesheet">
+        <script type="module" src="scripts/main.js"></script>
     </head>
     <body>
         <div class="header">
@@ -14,13 +15,15 @@
             </div>
         </div>
 
-        <div class="text-prompt">
-            <div class="above-text">
+        <div class="typingTest">
+            <div class="aboveText">
                 <div class="timer" id="timer">0 seconds 0 WPM</div>
-            </div>           
-            <div class="main-text" id="mainText"></div>
-            <textarea class="text-input" id="textInput" autofocus></textarea>
-            <div class="option-buttons">
+            </div>
+            <button type="button" class="testFocus" id="testFocus"></button>           
+            <div class="testText" id="testText"></div>
+            <div class="pipe" id="pipe">|</div>
+            <input class="textInput" id="textInput" autofocus="true"></input>
+            <div class="optionButtons">
                 <button type="button" class="new-prompt" id="newPrompt" title="New Prompt">&#8634;</button>
             </div>
         </div>

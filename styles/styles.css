@@ -39,6 +39,20 @@ body {
     left: 80%;
 }
 
+.pipe {
+    position: absolute;
+    background-color: transparent;
+    width: 10px;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    vertical-align: top;
+    display: inline;
+
+    top: 43px;
+    left: 2px;
+}
+
 .profile-button {
     width: 100%;
     height: 100%;
@@ -67,7 +81,25 @@ body {
     margin-top: 20px;
 }
 
-.text-prompt {
+.testFocus {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    height: 80%;
+    width: 100%;
+}
+
+.textInput {
+    background-color: transparent;
+    color: transparent;
+    position: absolute;
+    top: 150px;
+    width: 200px;
+    border: none;
+    outline: none;
+}
+
+.typingTest {
     color: var(--primary-accent-color);
 
     margin: 0;
@@ -97,11 +129,16 @@ body {
 
 }
 
-.main-text {
+.word {
+    display: inline;
+}
+
+.testText {
     height: 80%;
     font-size: 1.75rem;
     color: #FFFFFF;
-    padding: 0.25rem;
+    padding: 0.5rem;
+    letter-spacing: 0.1rem;
 }
 
 .prompt {
@@ -114,7 +151,7 @@ body {
     border: solid;
 }
 
-.text-input {
+.testInput {
     top: 15%;
     width: 100%;
     height: 80%;
