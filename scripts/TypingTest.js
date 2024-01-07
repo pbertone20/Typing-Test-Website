@@ -23,6 +23,7 @@ export class TypingTest {
     this.testLength = this.text.split(' ').length;
     this.currentWord = 0;
     this.currentLetter = 0;
+    this.correctWords = 0;
     this.testStarted = false;
     this.input.value = '';
   }
@@ -87,21 +88,32 @@ export class TypingTest {
    * @param {the most recent input character} char 
    */
   #addInvalidChar(wordList, letterList, char) {
-    let wordBuffer = new Array();
+    let wordStore = new Array();
     for (let i = 0; i < letterList.length; i += 1) {
-      wordBuffer.push(letterList[i]);
+      wordStore.push(letterList[i]);
     }
     wordList[this.currentWord].innerHTML = '';
-    for (let i = 0; i < wordBuffer.length; i += 1) {
+    for (let i = 0; i < wordStore.length; i += 1) {
       if (i == this.currentLetter) {
         const wrongLetter = document.createElement('span');
         wrongLetter.innerText = char;
         wrongLetter.className = 'incorrect';
         wordList[this.currentWord].appendChild(wrongLetter);
       }
-      wordList[this.currentWord].appendChild(wordBuffer[i]);
+      wordList[this.currentWord].appendChild(wordStore[i]);
     }
     this.currentLetter += 1;
+  }
+
+  #isWordCorrect(letterList) {
+    let correct = true;
+    for (let i = 0; i < letterList.length - 1; i += 1) {
+      if (letterList[i].className != 'correct') {
+        console.log("incorrect");
+        correct = false;
+      }
+    }
+    return correct;
   }
 
   /**
@@ -110,18 +122,30 @@ export class TypingTest {
    * @param {the NodeList of the letters of the current word} letterList 
    * @returns boolean of whether the test is complete
    */
-  #isTestDone(letterList) {
-    if (this.currentWord != this.testLength - 1) {
+  #isTestDone(wordList) {
+    if (this.currentWord != this.testLength-1) {
       return false;
     } 
     let done = true;
+    let letterList = wordList[this.testLength-1].childNodes;
     letterList.forEach(letter => {
       if (letter.className == '') {
-        console.log(letter);
         done = false;
       }
     });
     return done;
+  }
+
+  /**
+   * ends the typing test
+   */
+  #endTest() {
+    console.log("test is over");
+    let totalTime = this.timer.stop();
+    let WPM = this.correctWords / (totalTime / 60.0);
+    console.log(WPM);
+    console.log(totalTime);
+    console.log(this.correctWords);
   }
 
   /**
@@ -132,36 +156,35 @@ export class TypingTest {
     let wordList = this.display.childNodes;
     let letterList = wordList[this.currentWord].childNodes;
     const char = this.input.value.slice(-1);
-
     // the backspace key is pressed
     if (this.input.value.length < this.currentLetter) {
       this.currentLetter -= 1;
       if (letterList[this.currentLetter].className == 'incorrect') {
         this.#removeInvalidChar(wordList, letterList);
       } else {
-        letterList.className = '';
+        letterList[this.currentLetter].className = '';
       }
-
     // the character input is a space
     } else if (char == ' ') {
+      if (this.#isWordCorrect(letterList)) {
+        this.correctWords += 1;
+      }
       this.currentWord += 1;
       this.currentLetter = 0;
       this.input.value = '';
-
     // the character input is the correct letter
     } else if (char == letterList[this.currentLetter].innerText) {
       letterList[this.currentLetter].className = 'correct';
       this.currentLetter += 1;
-
     // the character input is the wrong letter
     } else {
       this.#addInvalidChar(wordList, letterList, char);
     }
-
-    console.log(letterList);
-    if (this.#isTestDone(letterList)) {
-      console.log("done");
+    if (this.#isTestDone(wordList)) {
+      if (this.#isWordCorrect(letterList)) {
+        this.correctWords += 1;
+      }
+      this.#endTest();
     }
-
   }
 }

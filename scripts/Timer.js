@@ -32,8 +32,7 @@ export class Timer {
      */
     stop() {
         console.log("timer end");
-        this.timerID = setInterval( () => {   
-        }, 0); 
+        clearInterval(this.timerID);
         return this.currentTime;
     }
 
@@ -43,6 +42,7 @@ export class Timer {
     reset() {
         this.stop();
         this.currentTime = this.startTime;
+        this.updateDisplay();
     }
 
     /**
