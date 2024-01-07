@@ -105,6 +105,26 @@ export class TypingTest {
   }
 
   /**
+   * determines if the test is complete
+   * 
+   * @param {the NodeList of the letters of the current word} letterList 
+   * @returns boolean of whether the test is complete
+   */
+  #isTestDone(letterList) {
+    if (this.currentWord != this.testLength - 1) {
+      return false;
+    } 
+    let done = true;
+    letterList.forEach(letter => {
+      if (letter.className == '') {
+        console.log(letter);
+        done = false;
+      }
+    });
+    return done;
+  }
+
+  /**
    * updates the display of the text in response to the users input
    */
   updateTest() {
@@ -137,5 +157,11 @@ export class TypingTest {
     } else {
       this.#addInvalidChar(wordList, letterList, char);
     }
+
+    console.log(letterList);
+    if (this.#isTestDone(letterList)) {
+      console.log("done");
+    }
+
   }
 }
