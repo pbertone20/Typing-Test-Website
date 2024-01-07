@@ -3,10 +3,9 @@ import { TypingTest } from "./TypingTest.js";
 import { Timer } from "./Timer.js";
 
 const RANDOM_QUOTE = "http://api.quotable.io/random"
-
-
 let timer = new Timer(0, 99999999, 1, "timer");
-let test = new TypingTest(await getQuote(), timer);
+const test = new TypingTest(await getQuote(), timer);
+
 /**
  * gets a new text prompt for the typing test
  * 
@@ -19,10 +18,10 @@ async function getQuote() {
 }
 
 /**
- * creates a new timer and typing test object
+ * wrapper method for the TypingTest newTest() method
  */
 async function getNewTest() {
-  test.reset(await getQuote());
+  test.newTest(await getQuote());
 }
 
 /**
@@ -37,6 +36,7 @@ function signOutGoogleUser() {
 }
 
 // all the event listeners
+
 document.addEventListener("DOMContentLoaded", () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
@@ -53,7 +53,6 @@ document.getElementById("newPrompt").addEventListener("click", () => {
 
 document.getElementById("titleButton").addEventListener("click", () => {
   window.location.replace("index.html");
-  //getNewTest();
 });
 
 document.getElementById("profileButton").addEventListener("click", () => {
