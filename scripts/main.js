@@ -66,6 +66,5 @@ document.getElementById("textInput").addEventListener("input", () => {
 document.getElementById("signOutBtn").addEventListener("click", signOutGoogleUser);
 
 document.getElementById("testFocus").addEventListener("click", () => {
-  console.log("bruh wtf");
   document.getElementById("textInput").focus();
 });

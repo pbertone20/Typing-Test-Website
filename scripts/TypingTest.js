@@ -1,14 +1,44 @@
+import { ResultsDisplay } from "./ResultsDisplay.js";
+
 /**
  * a class that represents the main functions of the typing test
  */
 export class TypingTest {
-  display = document.getElementById('testText');
-  input = document.getElementById('textInput');
+  display;
+  input;
   text;
 
   constructor(newText, timerObj) {
     this.timer = timerObj;
+    this.testDiv = document.getElementById('mainContent');
+    this.#buildElements();
     this.newTest(newText);
+  }
+
+  /**
+   * creates the elements of the typing test module
+   */
+  #buildElements() {
+    this.testDiv.innerHTML = '';
+
+    const focusButton = document.createElement('button');
+    focusButton.className = 'testFocus';
+    focusButton.id = 'testFocus';
+
+    const testText = document.createElement('div'); 
+    testText.className = 'testText';
+    testText.id = 'testText';
+    this.display = testText;
+
+    const textInput = document.createElement('input');
+    textInput.className = 'textInput';
+    textInput.id = 'textInput';
+    this.input = textInput;
+
+    this.testDiv.appendChild(focusButton);
+    this.testDiv.appendChild(testText);
+    this.testDiv.appendChild(textInput);
+    textInput.focus();
   }
 
   /**
@@ -18,12 +48,14 @@ export class TypingTest {
    */
   newTest(newText) {
     this.text = newText;
+    this.#buildElements();
     this.#displayText();
     this.timer.reset();
     this.testLength = this.text.split(' ').length;
     this.currentWord = 0;
     this.currentLetter = 0;
     this.correctWords = 0;
+    this.errors = 0;
     this.testStarted = false;
     this.input.value = '';
   }
@@ -140,12 +172,10 @@ export class TypingTest {
    * ends the typing test
    */
   #endTest() {
-    console.log("test is over");
-    let totalTime = this.timer.stop();
-    let WPM = this.correctWords / (totalTime / 60.0);
-    console.log(WPM);
-    console.log(totalTime);
-    console.log(this.correctWords);
+    const totalTime = this.timer.stop();
+    const testLength = this.text.split('').length;
+    const results = new ResultsDisplay(totalTime, this.correctWords, testLength, this.errors);
+    results.render();
   }
 
   /**
@@ -178,6 +208,7 @@ export class TypingTest {
       this.currentLetter += 1;
     // the character input is the wrong letter
     } else {
+      this.errors += 1;
       this.#addInvalidChar(wordList, letterList, char);
     }
     if (this.#isTestDone(wordList)) {

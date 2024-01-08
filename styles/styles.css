@@ -20,8 +20,25 @@ body {
     text-decoration: underline;
 }
 
-.invalid {
-    color: #c1c1c1;
+.center-horizontal {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.center-vertical {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateX(-50%);
+}
+
+.mainContent {
+    border: none;
+    margin: none;
+    height: 80%;
+    width: 100%;
 }
 
 .header {

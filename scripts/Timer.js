@@ -16,7 +16,6 @@ export class Timer {
      * starts the timer counting every second
      */
     start() {
-        console.log("timer start");
         this.timerID = setInterval( () => {
             if (this.currentTime != this.endTime) {
               this.currentTime += this.direction;
@@ -31,7 +30,6 @@ export class Timer {
      * @returns the time elapsed from when the timer started to when it stopped
      */
     stop() {
-        console.log("timer end");
         clearInterval(this.timerID);
         return this.currentTime;
     }
@@ -49,6 +47,6 @@ export class Timer {
      * updates the text of the provided element with the current time
      */
     updateDisplay() {
-        this.display.innerText = this.currentTime + " seconds";
+        this.display.innerText = this.currentTime;
     }
 }
