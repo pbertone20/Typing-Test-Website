@@ -8,11 +8,11 @@
     <body>
         <div class="header">
             <a href="index.html">
-                <button type="button" name="title" class="title">Peter & Claire's Typeria</button>
+                <button class="title" name="title" type="button">Peter & Claire's Typeria</button>
             </a>
             <div class="back">
                 <a href="index.html">
-                    <button type="button" class="back-button" title="back"><</button>
+                    <button class="back-button" type="button" title="back"><</button>
                 </a>
             </div>
         </div>
@@ -21,15 +21,15 @@
                 <h1 class="log-in-text">Log In</h1>
             </div>
             <form class="log-in-fields">
-               <label for="username" class="username-label">Username<input type="text" class="username" placeholder="Username" required></label><br>
-                <label for="password" class="password-label">Password<input type="text" class="password" placeholder="Password" required></label><br>
-                <input type="submit" value="Submit" class="log-in-submit"> 
+               <label class="username-label" for="username">Username<input class="username" id="log-in-username-input" type="text" placeholder="Username" required></label><br>
+                <label class="password-label" for="password">Password<input class="password" id="log-in-password-input" type="text" placeholder="Password" required></label><br>
+                <input class="log-in-submit" id="log-in-submit" type="submit" value="Submit"> 
             </form>
         </fieldset>
         <div>
             <p class="no-account-text">don't have an account?<br><a class="sign-up-link" href="sign-up.html">sign up</a></p>
         </div>
-        <script type="module" src="firebaseConfig.js"></script>
+        <script src="firebaseConfig.js" type="module"></script>
     </body>
     
 </html>
