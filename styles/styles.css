@@ -11,6 +11,18 @@ body {
     margin: 0;
 }
 
+.results-header {
+    color: #c6c6c6;
+    font-size: 1.5rem;
+    display: grid;
+}
+
+.results-content {
+    color: var(--primary-accent-color);
+    font-size: 2rem;
+    display: grid;
+}
+
 .correct {
     color: #b1ff68;
 }
