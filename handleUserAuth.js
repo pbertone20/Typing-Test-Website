@@ -1,5 +1,7 @@
 import { auth } from "./firebaseConfig.js";
 import { signInUserWithGoogle } from "./utilities/authentication/SignInWithGoogle.js";
+import { storeUserData } from "./utilities/database/StoreUserData.js";
+
 
 // Listener triggers every time there is a change in the users sign-in state
 auth.onAuthStateChanged(function (user) {
@@ -9,6 +11,7 @@ auth.onAuthStateChanged(function (user) {
         console.log("User is logged in:", user.displayName);
 
         // Redirect the user to index.html page 
+        // IF YOU COMMMENT OUT THE LINE BELOW, THE DATABSE SAVES THE TIMESTAMP AND USER INFO TO THE DB ON GOOGLE SIGN-IN
         window.location.href = "index.html";
 
         // if the user is signed out
@@ -32,6 +35,14 @@ async function handleGoogleSignUp() {
         // if the user has successfully signed in
     } else {
         console.log("success, user has signed in with Google");
+        const userId = auth.currentUser.uid;
+        const userEmail = auth.currentUser.email;
+
+        try {
+            await storeUserData(userId, userEmail);
+        } catch(error) {
+            console.error("Error has occurred:", error);
+        }
     }
 
 };
