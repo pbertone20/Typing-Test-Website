@@ -47,8 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.getElementById("newPrompt").addEventListener("click", () => {
-  getNewTest();
-  document.getElementById("textInput").focus();
+  location.reload();
 });
 
 document.getElementById("titleButton").addEventListener("click", () => {

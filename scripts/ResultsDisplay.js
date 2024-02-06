@@ -27,28 +27,39 @@ export class ResultsDisplay {
         resultsHeader.innerText = 'Results';
         this.displayDiv.appendChild(resultsHeader);
 
+        this.displayDiv.appendChild(document.createElement('br'));
+
+
         const wpmHeader = document.createElement('span');
         wpmHeader.id = 'WPM';
-        wpmHeader.innerText = 'WPM';
+        wpmHeader.innerText = 'WPM = ';
         this.displayDiv.appendChild(wpmHeader);
         const wpmData = document.createElement('span');
         wpmData.innerText = this.wpm;
         this.displayDiv.appendChild(wpmData);
 
+        this.displayDiv.appendChild(document.createElement('br'));
+
+
         const timeHeader = document.createElement('span');
         timeHeader.id = 'time';
-        timeHeader.innerText = 'Time';
+        timeHeader.innerText = 'Time Taken = ';
         this.displayDiv.appendChild(timeHeader);
         const timeData = document.createElement('span');
         timeData.innerText = this.totalTime + 's';
         this.displayDiv.appendChild(timeData);
 
+        this.displayDiv.appendChild(document.createElement('br'));
+
         const accuracyHeader = document.createElement('span');
         accuracyHeader.id = 'accuracy';
-        accuracyHeader.innerText = 'Accuracy';
+        accuracyHeader.innerText = 'Accuracy = ';
         this.displayDiv.appendChild(accuracyHeader);
         const accuracyData = document.createElement('span');
         accuracyData.innerText = this.accuracy + '%';
         this.displayDiv.appendChild(accuracyData);
+    
+        this.displayDiv.appendChild(document.createElement('br'));
+
     }
 }

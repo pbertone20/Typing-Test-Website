@@ -38,7 +38,7 @@ export class TypingTest {
     this.testDiv.appendChild(focusButton);
     this.testDiv.appendChild(testText);
     this.testDiv.appendChild(textInput);
-    textInput.focus();
+    //textInput.focus();
   }
 
   /**
@@ -58,6 +58,7 @@ export class TypingTest {
     this.errors = 0;
     this.testStarted = false;
     this.input.value = '';
+    //this.input.focus();
   }
 
   /**
@@ -194,7 +195,7 @@ export class TypingTest {
       } else {
         letterList[this.currentLetter].className = '';
       }
-    // the character input is a space
+    // the character input is a space 
     } else if (char == ' ') {
       if (this.#isWordCorrect(letterList)) {
         this.correctWords += 1;

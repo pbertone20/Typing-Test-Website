@@ -47,6 +47,6 @@ export class Timer {
      * updates the text of the provided element with the current time
      */
     updateDisplay() {
-        this.display.innerText = this.currentTime;
+        this.display.innerText = this.currentTime + " Seconds";
     }
 }
