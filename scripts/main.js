@@ -21,7 +21,8 @@ async function getQuote() {
  * wrapper method for the TypingTest newTest() method
  */
 async function getNewTest() {
-  test.newTest(await getQuote());
+  const quote = await getQuote();
+  test.newTest(quote);
 }
 
 /**
