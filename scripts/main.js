@@ -2,7 +2,7 @@ import { auth } from "../firebaseConfig.js";
 import { TypingTest } from "./TypingTest.js";
 import { Timer } from "./Timer.js";
 
-const RANDOM_QUOTE = "http://api.quotable.io/random"
+const RANDOM_QUOTE = "https://api.quotable.io/random"
 let timer = new Timer(0, 99999999, 1, "timer");
 const test = new TypingTest(await getQuote(), timer);
 
