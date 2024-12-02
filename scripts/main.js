@@ -2,7 +2,7 @@ import { auth } from "../firebaseConfig.js";
 import { TypingTest } from "./TypingTest.js";
 import { Timer } from "./Timer.js";
 
-const RANDOM_QUOTE = "https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en"
+const RANDOM_QUOTE = "http://api.quotable.io/random"
 let timer = new Timer(0, 99999999, 1, "timer");
 const test = new TypingTest(await getQuote(), timer);
 
@@ -14,15 +14,14 @@ const test = new TypingTest(await getQuote(), timer);
 async function getQuote() {
   return fetch(RANDOM_QUOTE)
     .then(response => response.json())
-    .then(data => data.quoteText)
+    .then(data => data.content)
 }
 
 /**
  * wrapper method for the TypingTest newTest() method
  */
 async function getNewTest() {
-  const quote = await getQuote();
-  test.newTest(quote);
+  test.newTest(await getQuote());
 }
 
 /**
